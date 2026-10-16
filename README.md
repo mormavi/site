@@ -1,14 +1,20 @@
-# Mormavi Psikolojik Danışmanlık — Web Sitesi
+# MorMavi Danışmanlık Merkezi — www.mormavi.net
 
-Statik, tek sayfalık anasayfa (`index.html` + `style.css`). Derleme gerektirmez.
+WordPress sitesinden taşınmış statik site. Her sayfa WordPress'teki **aynı adreste** durur
+(başlık, açıklama, canonical, Open Graph ve Rank Math şema verisi korunmuştur).
 
-## Düzenlenecek yer tutucular
-Sarı ile vurgulanan (`class="ph"`) alanları gerçek bilgilerle değiştirin:
-- Ad Soyad, unvan, deneyim yılı, eğitim
-- Telefon numarası ve adres
-- Hakkımda bölümündeki fotoğraf alanı (`.portrait`)
+## Yapı
+- `content/site.json` — WordPress'ten alınan içerik (sayfalar, yazılar, hizmetler, kategoriler)
+- `content/tests/` — SCL-90 ve MMPI test araçlarının orijinalleri
+- `tools/build.py` — siteyi üretir: `pip install beautifulsoup4 && python3 tools/build.py`
+- `wp-content/uploads/` — görseller (WordPress'teki yollarla aynı)
+- `assets/` — stil ve menü betiği
 
-Doldurduktan sonra `class="ph"` sınıfını kaldırın.
+## SEO
+- `sitemap_index.xml` (+ page / post / hizmetler / category sitemap'leri), `robots.txt`
+- Kaldırılmış eski adresler için `_redirects` (Cloudflare'de gerçek 301) ve aynı yerde HTML
+  yönlendirme sayfaları (GitHub Pages için). Liste: `tools/build.py` içindeki `REDIRECTS`.
+- `google3034ee08a6fa2605.html` — Search Console doğrulama dosyası (silmeyin).
 
-## Yayınlama
-GitHub Pages: Settings → Pages → Branch: `main` / root.
+## Yeni yazı eklemek
+`content/site.json` içine yeni bir kayıt ekleyip `python3 tools/build.py` çalıştırın.

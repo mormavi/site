@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /tools/
+Disallow: /content/
+
+Sitemap: https://www.mormavi.net/sitemap_index.xml

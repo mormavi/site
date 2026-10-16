@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head><meta name="robots" content="noindex, follow"><link rel="canonical" href="https://www.mormavi.net/scl-90-testi/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCL-90 Psikolojik Belirti Tarama Testi | MorMavi</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f1f5f9; color: #1e293b; margin: 0; padding: 20px 10px; }
+    .test-card { max-width: 760px; margin: 20px auto; background: #ffffff; padding: 30px 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+    .header-title { text-align: center; margin-bottom: 25px; }
+    .header-title h1 { font-size: 22px; color: #0f172a; margin: 0 0 8px 0; }
+    .header-title p { font-size: 14px; color: #64748b; margin: 0; }
+    .progress-bar-bg { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 25px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; width: 10%; background: #4f46e5; transition: width 0.3s ease; }
+    .step-counter { font-size: 13px; font-weight: 600; color: #6366f1; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .q-item { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; }
+    .q-text { font-size: 15px; font-weight: 600; color: #334155; margin-bottom: 10px; }
+    .opt-group { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+    @media (max-width: 650px) { .opt-group { grid-template-columns: 1fr; gap: 6px; } }
+    .opt-label { display: flex; align-items: center; justify-content: center; gap: 6px; background: #ffffff; border: 1px solid #cbd5e1; padding: 9px 4px; border-radius: 8px; font-size: 12px; cursor: pointer; font-weight: 500; text-align: center; }
+    .opt-label:hover { background: #f5f3ff; border-color: #6366f1; }
+    .nav-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 25px; }
+    .btn { padding: 13px 24px; border-radius: 9px; font-size: 15px; font-weight: 600; border: none; cursor: pointer; }
+    .btn-prev { background: #e2e8f0; color: #475569; }
+    .btn-next { background: #4f46e5; color: #ffffff; margin-left: auto; }
+    .btn-next:hover { background: #4338ca; }
+    .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+    @media (max-width: 600px) { .results-grid { grid-template-columns: 1fr; } }
+    .score-card { background: #fffdf5; border-left: 4px solid #eab308; border-top: 1px solid #fef08a; border-right: 1px solid #fef08a; border-bottom: 1px solid #fef08a; padding: 12px 16px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .score-card strong { font-size: 14px; color: #1e293b; }
+    .score-card span { font-size: 18px; font-weight: 700; color: #ca8a04; }
+    .wa-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 22px; margin-top: 25px; text-align: center; }
+    .btn-wa { display: inline-block; width: 100%; background: #22c55e; color: #ffffff; text-decoration: none; padding: 15px 20px; border-radius: 10px; font-weight: 600; font-size: 16px; box-sizing: border-box; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3); }
+    .btn-wa:hover { background: #16a34a; }
+  </style>
+</head>
+<body>
+
+<div class="test-card">
+  <div class="header-title">
+    <h1>SCL-90 Psikolojik Belirti Tarama Testi</h1>
+    <p>Son 1 haftanızı değerlendirerek durumunuza en uygun seçeneği işaretleyin.</p>
+  </div>
+
+  <div id="quiz-flow">
+    <div class="progress-bar-bg"><div id="progress" class="progress-bar-fill"></div></div>
+    <div id="step-info" class="step-counter">Sayfa 1 / 9</div>
+    <div id="questions-box"></div>
+    <div class="nav-actions">
+      <button type="button" id="btn-back" class="btn btn-prev" style="display:none;" onclick="prevPage()">Geri</button>
+      <button type="button" id="btn-forward" class="btn btn-next" onclick="nextPage()">Devam Et</button>
+    </div>
+  </div>
+
+  <div id="result-flow" style="display:none; text-align:center;">
+    <h2 style="color:#0f172a; margin-top:0;">Test Sonuç Özetiniz</h2>
+    <p style="color:#64748b; font-size:14px;">9 alt boyutta hesaplanan ortalama semptom puanlarınız:</p>
+    <div id="scores-view" class="results-grid"></div>
+    <div class="wa-card">
+      <p style="margin:0 0 15px 0; font-size:15px; font-weight:500;">Sonuçlarınızı uzmanımızla değerlendirmek ve randevu almak için:</p>
+      <a id="wa-btn" href="#" target="_blank" class="btn-wa">💬 Sonuçları Psikologla Paylaş (WhatsApp)</a>
+      <p style="font-size:12px; color:#94a3b8; margin:15px 0 0 0;">*Bu test tanı koymaz, farkındalık ve ön değerlendirme amaçlıdır.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+var qList = [
+  "1. Baş ağrıları", "2. Sinirlilik ya da içinizin titremesi", "3. Zihninizden atamadığınız tatsız düşünceler",
+  "4. Baygınlık ya da baş dönmesi", "5. Cinsel ilgi ve arzunun kaybı", "6. Başkalarının sizi eleştirmesinden rahatsız olmak",
+  "7. Başka birinin düşüncelerinizi kontrol ettiği hissi", "8. Sorunlarınızdan çoğunlukla başkalarının sorumlu olduğu hissi",
+  "9. Olayları hatırlamada güçlük", "10. Dikkatsizlik veya sakarlıkla ilgili endişeler", "11. Kolayca gücenme, rahatsız olma",
+  "12. Göğüs ya da kalp bölgesinde ağrılar", "13. Açık alanlardan ya da sokaklardan korkma", "14. Enerjinizin azalması ya da yavaşlama",
+  "15. Yaşamınızın sona ermesi düşünceleri", "16. Başkalarının duymadığı sesleri duyma", "17. Titreme ya da seğirmeler",
+  "18. Çoğu insana güvenilmeyeceği hissi", "19. İştahınızda azalma", "20. Kolayca ağlama",
+  "21. Karşı cinsten insanlarla çekingenlik", "22. Tuzağa düşürülmüş ya da kapana kısılmış hissetme", "23. Aniden ve nedensiz yere korkuya kapılma",
+  "24. Kontrol edilemeyen öfke patlamaları", "25. Evden yalnız çıkmaktan korkma", "26. Kendini olaylar için suçlama",
+  "27. Bel bölgesinde ağrılar", "28. İşleri bitirmekte güçlük çekme", "29. Kendini yalnız hissetme", "30. Kederli, hüzünlü ve mutsuz hissetme",
+  "31. Durumlar için aşırı kaygı duyma", "32. Hiçbir şeye ilgi duymama", "33. Korku hissi", "34. Duygularınızın kolayca incinmesi",
+  "35. Başkalarının gizli düşüncelerinizi bildiği hissi", "36. Başkalarının sizi anlamadığı hissi", "37. İnsanların size dostça davranmadığı hissi",
+  "38. İşleri doğru yapabilmek için çok yavaş davranma", "39. Kalbinizin hızlı çarpması (çarpıntı)", "40. Mide bulantısı ya da bozukluğu",
+  "41. Kendini başkalarından aşağı görme", "42. Kaslarda ağrı ve sızılar", "43. Başkalarının sizi izlediği hissi",
+  "44. Uykuya dalmada güçlük", "45. Yaptığınız işleri bir ya da birkaç kez kontrol etme", "46. Karar vermede güçlük çekme",
+  "47. Toplu taşıtlara binmekten korkma", "48. Nefes darlığı ya da nefes alamama", "49. Sıcak ya da soğuk basmaları",
+  "50. Korktuğunuz şeylerden ve yerlerden kaçınma", "51. Aklınızın boşalması hissi", "52. Bedeninizde uyuşma ya da karıncalanma",
+  "53. Boğazınızda bir yumru veya tıkanma hissi", "54. Geleceğe ilişkin umutsuzluk", "55. Dikkati toplamakta güçlük",
+  "56. Bedeninizin kısımlarında zayıflık hissi", "57. Gergin ya da aşırı uyarılmış hissetme", "58. Kollarda ya da bacaklarda ağırlık",
+  "59. Ölüm düşünceleri", "60. Aşırı yemek yeme", "61. İnsanlar size baktığında rahatsız olma",
+  "62. Size ait olmayan düşüncelere sahip olma", "63. Bir başkasına zarar verme isteği", "64. Sabahları çok erken uyanma",
+  "65. Aynı şeyleri tekrarlamak zorunda hissetme (el yıkama vb.)", "66. Uykunun huzursuz ve kesintili olması", "67. Eşyaları kırma ya da dökme isteği",
+  "68. Başkalarının paylaşmadığı inançlara sahip olma", "69. Başkalarının yanında aşırı çekingenlik", "70. Kalabalıklardan rahatsız olma",
+  "71. Her şeyin size zor gelmesi", "72. Dehşet veya panik nöbetleri", "73. Toplum içinde yerken/içerken rahatsız olma",
+  "74. Sık sık tartışmaya girme", "75. Yalnız kaldığınızda aşırı tedirgin olma", "76. Başkalarının başarılarınızı takdir etmediği hissi",
+  "77. Başkalarıyla birlikteyken bile yalnız hissetme", "78. Yerinizde duramayacak kadar kıpır kıpır hissetme", "79. Değersizlik duyguları",
+  "80. Başınıza kötü bir şey geleceği hissi", "81. Bağırma ya da bir şeyler fırlatma isteği", "82. Topluluk içinde bayılmaktan korkma",
+  "83. İnsanların sizden yararlanmaya çalıştığı hissi", "84. Suçluluk hissettiren cinsel düşünceler", "85. Günahlarınızdan dolayı cezalandırılmanız gerektiği düşüncesi",
+  "86. Korkutucu türden düşünce ve hayaller", "87. Bedeninizde ciddi bir rahatsızlık olduğu düşüncesi", "88. Başka bir kişiye karşı asla yakınlık kuramama",
+  "89. Suçluluk Duygusu", "90. Aklınızda bir bozukluk olduğu düşüncesi"
+];
+
+var scales = {
+  "Somatizasyon": [1, 4, 12, 27, 40, 42, 48, 49, 52, 53, 56, 58],
+  "Obsesif-Kompulsif": [3, 9, 10, 28, 38, 45, 46, 51, 55, 65],
+  "Kişilerarası Duyarlılık": [6, 21, 34, 36, 37, 41, 61, 69, 73],
+  "Depresyon": [5, 14, 15, 20, 22, 26, 29, 30, 31, 32, 54, 71, 79],
+  "Anksiyete": [2, 17, 23, 33, 39, 57, 72, 78, 80, 86],
+  "Öfke ve Düşmanlık": [11, 24, 63, 67, 74, 81],
+  "Fobik Anksiyete": [13, 25, 47, 50, 70, 75, 82],
+  "Paranoid Düşünce": [8, 18, 43, 68, 76, 83],
+  "Psikotizm": [7, 16, 35, 62, 77, 84, 85, 87, 88, 90]
+};
+
+var opts = ["0 - Hiç", "1 - Çok Az", "2 - Orta", "3 - Oldukça", "4 - İleri"];
+var ans = {};
+var curPage = 0;
+var perPage = 10; // Her sayfada 10 soru
+var totalPages = Math.ceil(qList.length / perPage);
+
+function drawPage() {
+  var box = document.getElementById("questions-box");
+  box.innerHTML = "";
+  var start = curPage * perPage;
+  var end = Math.min(start + perPage, qList.length);
+
+  for (var i = start; i < end; i++) {
+    var qNum = i + 1;
+    var html = '<div class="q-item">' +
+      '<div class="q-text">' + qList[i] + '</div>' +
+      '<div class="opt-group">';
+    for (var v = 0; v < 5; v++) {
+      var isChk = (ans[qNum] === v) ? 'checked' : '';
+      html += '<label class="opt-label">' +
+        '<input type="radio" name="q_' + qNum + '" value="' + v + '" ' + isChk + ' onchange="setAns(' + qNum + ',' + v + ')">' +
+        opts[v] + '</label>';
+    }
+    html += '</div></div>';
+    box.innerHTML += html;
+  }
+
+  document.getElementById("btn-back").style.display = (curPage > 0) ? "inline-block" : "none";
+  document.getElementById("btn-forward").innerText = (end === qList.length) ? "Sonuçları Hesapla" : "Devam Et";
+  document.getElementById("step-info").innerText = "Sayfa " + (curPage + 1) + " / " + totalPages;
+  document.getElementById("progress").style.width = (((curPage + 1) / totalPages) * 100) + "%";
+}
+
+function setAns(q, v) { ans[q] = v; }
+
+function nextPage() {
+  var start = curPage * perPage;
+  var end = Math.min(start + perPage, qList.length);
+  for (var i = start; i < end; i++) {
+    if (ans[i + 1] === undefined) {
+      alert("Lütfen bu sayfadaki tüm soruları cevaplayınız.");
+      return;
+    }
+  }
+
+  if (end === qList.length) {
+    showScores();
+  } else {
+    curPage++;
+    drawPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function prevPage() {
+  if (curPage > 0) {
+    curPage--;
+    drawPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+function showScores() {
+  document.getElementById("quiz-flow").style.display = "none";
+  var sView = document.getElementById("scores-view");
+  sView.innerHTML = "";
+  var waSummary = "Merhaba MorMavi Danışmanlık,%0ASCL-90 Test Sonuçlarım:%0A";
+
+  for (var sc in scales) {
+    var sum = 0;
+    var list = scales[sc];
+    for (var k = 0; k < list.length; k++) {
+      var qId = list[k];
+      if (ans[qId] !== undefined) sum += ans[qId];
+    }
+    var avg = (sum / list.length).toFixed(2);
+    sView.innerHTML += '<div class="score-card"><strong>' + sc + '</strong><span>' + avg + '</span></div>';
+    waSummary += "• " + sc + ": " + avg + "%0A";
+  }
+
+  // --- KENDİ WHATSAPP NUMARANIZI YAZIN ---
+  var myPhone = "905075636157";
+  // ---------------------------------------
+
+  document.getElementById("wa-btn").href = "https://wa.me/" + myPhone + "?text=" + waSummary + "%0ASonuçlarımı uzmanla değerlendirmek istiyorum.";
+  document.getElementById("result-flow").style.display = "block";
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+drawPage();
+</script>
+</body>
+</html>
